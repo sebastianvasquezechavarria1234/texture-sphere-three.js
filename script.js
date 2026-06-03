@@ -19,11 +19,20 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+controls.minDistance = 3;
+controls.maxDistance = 48;
 
 const textureLoader = new THREE.TextureLoader();
 const exrLoader = new EXRLoader();
 
-scene.background = textureLoader.load('./img/scene-bg.jpg');
+const bgTexture = textureLoader.load('./img/scene-bg.jpg');
+const bgGeometry = new THREE.SphereGeometry(50, 64, 64);
+const bgMaterial = new THREE.MeshBasicMaterial({
+  map: bgTexture,
+  side: THREE.BackSide
+});
+const bgSphere = new THREE.Mesh(bgGeometry, bgMaterial);
+scene.add(bgSphere);
 
 const diffuseTexture = textureLoader.load('./img/texture/textures/marble_cliff_03_diff_4k.jpg');
 const normalTexture = exrLoader.load('./img/texture/textures/marble_cliff_03_nor_gl_4k.exr');
