@@ -3,7 +3,6 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x1a1a2e);
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -23,6 +22,8 @@ controls.enableDamping = true;
 
 const textureLoader = new THREE.TextureLoader();
 const exrLoader = new EXRLoader();
+
+scene.background = textureLoader.load('./img/scene-bg.jpg');
 
 const diffuseTexture = textureLoader.load('./img/texture/textures/marble_cliff_03_diff_4k.jpg');
 const normalTexture = exrLoader.load('./img/texture/textures/marble_cliff_03_nor_gl_4k.exr');
