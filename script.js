@@ -27,25 +27,34 @@ const exrLoader = new EXRLoader();
 const diffuseTexture = textureLoader.load('./img/texture/textures/marble_cliff_03_diff_4k.jpg');
 const normalTexture = exrLoader.load('./img/texture/textures/marble_cliff_03_nor_gl_4k.exr');
 const roughnessTexture = exrLoader.load('./img/texture/textures/marble_cliff_03_rough_4k.exr');
+const displacementTexture = textureLoader.load('./img/texture/textures/marble_cliff_03_disp_4k.png');
 
-const geometry = new THREE.SphereGeometry(2, 64, 64);
+const geometry = new THREE.SphereGeometry(2, 128, 128);
 
 const material = new THREE.MeshStandardMaterial({
   map: diffuseTexture,
   normalMap: normalTexture,
+  normalScale: new THREE.Vector2(1.5, 1.5),
   roughnessMap: roughnessTexture,
-  roughness: 0.8,
+  roughness: 1.0,
+  displacementMap: displacementTexture,
+  displacementScale: 0.3,
+  displacementBias: -0.1,
 });
 
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
+
+const backLight = new THREE.DirectionalLight(0xffffff, 0.6);
+backLight.position.set(-5, 3, -5);
+scene.add(backLight);
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
