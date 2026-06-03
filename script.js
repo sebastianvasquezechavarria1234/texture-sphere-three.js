@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x1a1a2e);
@@ -21,12 +22,19 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 const textureLoader = new THREE.TextureLoader();
+const exrLoader = new EXRLoader();
+
 const diffuseTexture = textureLoader.load('./img/texture/textures/marble_cliff_03_diff_4k.jpg');
+const normalTexture = exrLoader.load('./img/texture/textures/marble_cliff_03_nor_gl_4k.exr');
+const roughnessTexture = exrLoader.load('./img/texture/textures/marble_cliff_03_rough_4k.exr');
 
 const geometry = new THREE.SphereGeometry(2, 64, 64);
 
 const material = new THREE.MeshStandardMaterial({
   map: diffuseTexture,
+  normalMap: normalTexture,
+  roughnessMap: roughnessTexture,
+  roughness: 0.8,
 });
 
 const sphere = new THREE.Mesh(geometry, material);

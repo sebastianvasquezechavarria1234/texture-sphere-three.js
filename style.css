@@ -13,18 +13,26 @@ canvas{
   display:block;
 }
 
-.creator-link {
+.buttons-container {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  color: white;
+  display: flex;
+  gap: 15px;
+}
 
+.creator-link,
+.github-link {
+  color: white;
   font-family: Arial, sans-serif;
   font-size: 14px;
+  font-style: italic;
+  text-decoration: underline;
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
 
-.creator-link:hover {
+.creator-link:hover,
+.github-link:hover {
   opacity: 1;
 }
